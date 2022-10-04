@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
-import  {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 
 function App() {
   const data = [
@@ -508,106 +508,105 @@ function App() {
   ]
 
 
- 
-
-const [currentpage,setCurrentPage]=useState(0)
-const [perpage,setPerPage]=useState(5)
 
 
-useEffect(()=>{
-  pagenate(0)
-},[perpage]);
+  const [currentpage, setCurrentPage] = useState(0)
+  const [perpage, setPerPage] = useState(5)
 
 
-let next=()=>{
-  if(currentpage !== ((data.length) / perpage)-1)
- pagenate(currentpage+1)
-}
-// console.log((data.length)/5);
+  useEffect(() => {
+    pagenate(0)
+  }, [perpage]);
 
 
-let prev=()=>{
-  if(currentpage !==0)
-  pagenate(currentpage-1)
- }
+  let next = () => {
+    if (currentpage !== ((data.length) / perpage) - 1)
+      pagenate(currentpage + 1)
+  }
+  // console.log((data.length)/5);
 
-  let pagenate = (index)=>{
-      // alert(index);
-      // var perpage=5
-      var start = index* +perpage;
-      console.log(start);
-      var end = start+ +perpage;
-      let list=data.slice(start,end)
-      console.log(list);
-      setTableList(list);
-      setCurrentPage(index)
+
+  let prev = () => {
+    if (currentpage !== 0)
+      pagenate(currentpage - 1)
+  }
+
+  let pagenate = (index) => {
+    // alert(index);
+    // var perpage=5
+    var start = index * +perpage;
+    console.log(start);
+    var end = start + +perpage;
+    let list = data.slice(start, end)
+    console.log(list);
+    setTableList(list);
+    setCurrentPage(index)
 
   }
 
-const [TableList,setTableList]=useState([])
+  const [TableList, setTableList] = useState([])
 
   return (
     <div className="container">
       <div className='row'>
         <div className='col-lg-12'>
 
-        <table className="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      
-    </tr>
-  </thead>
-  <tbody>
-    {
-      TableList.map((item)=>{
-        return (
-          <tr>
-      <th scope="row">{item.id}</th>
-      <td>{item.name}</td>
-      <td>{item.email}</td>
-      
-    </tr>
-        )
-      })
-    }
-  </tbody>
-</table>
+          <table className="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              {
+                TableList.map((item) => {
+                  return (
+                    <tr>
+                      <th scope="row">{item.id}</th>
+                      <td>{item.name}</td>
+                      <td>{item.email}</td>
+
+                    </tr>
+                  )
+                })
+              }
+            </tbody>
+          </table>
 
 
-<nav aria-label="Page navigation example">
-  <ul className="pagination">
-   {(currentpage ==0) ?null: <li className="page-item"><button className="page-link" onClick={prev}>Previous</button></li>}
-    
-    {
-      [...Array(data.length/perpage)].map((page,index)=>{
-        return (<li className="page-item">
-          <button className={`page-link ${currentpage == index ? "active":""}`} onClick={()=>{pagenate(index)}}>{index +1}</button>
-          </li> )
-      })
-    }
+          <nav aria-label="Page navigation example">
+            <ul className="pagination">
+              {(currentpage == 0) ? null : <li className="page-item"><button className="page-link" onClick={prev}>Previous</button></li>}
 
-    {(currentpage == ((data.length) / perpage)-1)?null:<li className="page-item"><button className="page-link" onClick={next} >Next</button></li>}
- 
-  </ul>
-</nav>
+              {
+                [...Array(data.length / perpage)].map((page, index) => {
+                  return (<li className="page-item">
+                    <button className={`page-link ${currentpage == index ? "active" : ""}`} onClick={() => { pagenate(index) }}>{index + 1}</button>
+                  </li>)
+                })
+              }
 
-<select className="form-control" style={{width:"75px"}}   onChange={((i)=>{
-    let a = i.target.value;
-     setPerPage(a); 
-  })}>
-  <option value="5">5</option>
-  <option value="10">10</option>
-  <option value="20">20 </option>
-</select>
+              {(currentpage == ((data.length) / perpage) - 1) ? null : <li className="page-item"><button className="page-link" onClick={next} >Next</button></li>}
+
+            </ul>
+          </nav>
+
+          <select className="form-control" style={{ width: "75px" }} onChange={(i) => {
+            let a = i.target.value;
+            setPerPage(a);
+          }}>
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="20">20 </option>
+          </select>
 
         </div>
-      </div>  
+      </div>
     </div>
   );
 }
 
 export default App;
- 
